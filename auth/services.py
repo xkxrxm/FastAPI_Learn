@@ -1,6 +1,5 @@
 # 【核酸采集平台】 auth/services.py
 from fastapi import Depends, HTTPException, status
-from jose import JWTError
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -51,7 +50,7 @@ async def get_current_user(token: str = Depends(AUTH_SCHEMA), db: Session = Depe
         username: str = extract_token(token)
         if username is None:
             raise invalid_exception
-    except JWTError:
+    except Exception:
         raise invalid_exception
     user = get_user(db, username=username)
     if user is None:

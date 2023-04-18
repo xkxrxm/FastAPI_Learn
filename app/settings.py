@@ -14,5 +14,5 @@ AUTH_SCHEMA = OAuth2PasswordBearer(tokenUrl="auth/login")
 # 数据库配置
 DB_HOST = 'localhost'
 DB_USERNAME = 'root'
-DB_PASSWORD = 'www.isoftstone.CoM'
+DB_PASSWORD = '123456'
 DB_DATABASE = 'nucleic'

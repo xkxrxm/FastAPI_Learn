@@ -32,6 +32,7 @@ def list_person(db: Session, params):
     # 用于查询当前条件下的总数量
     qcnt = db.query(func.count('*'))
     q = db.query(PersonInDB)
+    # 如果有对应的参数就设置对应的过滤条件
     if params['xm']:
         q = q.filter(PersonInDB.xm == params['xm'])
         qcnt = qcnt.filter(PersonInDB.xm == params['xm'])
@@ -41,6 +42,8 @@ def list_person(db: Session, params):
     if params['jzdz']:
         q = q.filter(PersonInDB.jzdz.like('%' + params['jzdz'] + '%'))
         qcnt = qcnt.filter(PersonInDB.jzdz.like('%' + params['jzdz'] + '%'))
+    #     获取符合过滤条件的总数量
     cnt = qcnt.scalar()
+    #   提取分页数据
     data = q.limit(params['size']).offset((params['page'] - 1) * params['size'])
     return {"count": cnt, "list": data.all()}

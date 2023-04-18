@@ -40,6 +40,7 @@ def save_checkin(db: Session, data: CheckIn):
 def list_checkin(db: Session, params: QueryParams):
     # 总条数，用于分页
     qcnt = db.query(func.count('*'))
+    # 这里是一个多表查询
     q = db.query(
         CheckInDB.id.label('id'),
         CheckInDB.bqbh.label('bqbh'),
