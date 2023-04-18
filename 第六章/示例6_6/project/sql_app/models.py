@@ -14,6 +14,7 @@ class User(Base):
     hashed_password = Column(String(50))
     is_active = Column(Boolean, default=True)
     # 定义一对多关系
+    # 注意学习这里的关系是如何定义的
     books = relationship("Book", back_populates="owner")
 
 # 声明Book模型，继承自Base类
