@@ -1,8 +1,10 @@
 # 【核酸采集平台】 main.py
 import uvicorn
 from fastapi import FastAPI, Depends
+# 跨域资源共享安全中间
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+# 重定向响应类
 from fastapi.responses import RedirectResponse
 from app.database import generate_tables
 from app.settings import AUTH_SCHEMA
@@ -17,6 +19,7 @@ origins = [  # 定义可用域列表
     "http://localhost:8080",  # 前端应用使用的端口
 ]
 app.add_middleware(           # 在应用上添加中间件
+    # todo 理解中间件的作用
     CORSMiddleware,           # 内置中间件类
     allow_origins=origins,    # 参数1 可用域列表
     allow_credentials=True,   # 参数2 允许cookie， 是
@@ -35,7 +38,9 @@ app.mount('/h5', StaticFiles(directory='h5/dist'), 'h5')     # 手机端H5项目
 
 ## 定义根路由路径指向的页面  ##
 @app.get('/')
-def toweb():                  # 将网站主页面重定向到后端页面
+def toweb():           
+    # 如何使用重定向响应
+    # 将网站主页面重定向到后端页面
     return RedirectResponse('/web/index.html')
 
 ##  生成表结构，SQLAlchemy的数据表同步工具  ##
